@@ -28,7 +28,7 @@ namespace SMGTimes.Controllers
             foreach (DateTime workingDate in workingDates)
             {
                 int hours = RequiredHoursFoDay(workingDate);
-
+                 
             }
 
         }
