@@ -9,13 +9,9 @@ namespace SMGTimes.Models
     {
         public bool IsFullTime { get; set; }
 
-        public int DefaultHoursForDay(DateTime date)
+        public DayTimeSetting GetDefaultSettingForDay(DateTime date)
         {
-            if (DayTimeSettings.Any(x => x.Day == date.DayOfWeek))
-            {
-                return DayTimeSettings.First(x => x.Day == date.DayOfWeek).Hours;
-            }
-            return 0;
+            return DayTimeSettings.FirstOrDefault(x => x.Day == date.DayOfWeek);
         }
 
         public List<DayTimeSetting> DayTimeSettings { get; set; }

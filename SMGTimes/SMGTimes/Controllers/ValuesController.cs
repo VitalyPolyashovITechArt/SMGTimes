@@ -20,11 +20,22 @@ namespace SMGTimes.Controllers
         };
 
         // GET api/values
-        public IEnumerable<DayTime> GetDataForLast()
-        {
-            List<DateTime> workingDates = GetLastWorkingWeek();
-            throw new Exception();
 
+        public List<DayTime> GetDataForLastWeek()
+        {
+            List<DayTime> dayTimes = new List<DayTime>();
+            List<DateTime> workingDates = GetLastWorkingWeek();
+            foreach (DateTime workingDate in workingDates)
+            {
+                int hours = RequiredHoursFoDay(workingDate);
+
+            }
+
+        }
+
+        public string GetWarningFOrTheLastWeek()
+        {
+            
         }
 
         private List<DateTime> GetLastWorkingWeek()
@@ -54,7 +65,8 @@ namespace SMGTimes.Controllers
             {
                 hours = item.Hours;
             }
-            return Options.DefaultHoursForDay(date) - hours;
+            return Options.GetDefaultSettingForDay(date).Hours - hours;
+
         }
 
         public void Approve(IEnumerable<DateTime> times)
