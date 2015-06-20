@@ -8,9 +8,11 @@ using SMGTimes.Models;
 
 namespace SMGTimes.Controllers
 {
+
+    [Route("")]
     public class MainController : ApiController
     {
-        public static List<DateTime> VacationDates = new List<DateTime>(); 
+        public static List<DateTime> VacationDates = new List<DateTime>();
 
         public static UserOptions Options = new UserOptions();
 
@@ -20,7 +22,7 @@ namespace SMGTimes.Controllers
         };
 
         // GET api/values
-
+        [Route("GetDataForLastWeek")]
         public List<DayTime> GetDataForLastWeek()
         {
             List<DayTime> dayTimes = new List<DayTime>();
@@ -30,12 +32,8 @@ namespace SMGTimes.Controllers
                 int hours = RequiredHoursFoDay(workingDate);
 
             }
+            throw new Exception();
 
-        }
-
-        public string GetWarningFOrTheLastWeek()
-        {
-            
         }
 
         private List<DateTime> GetLastWorkingWeek()
