@@ -10,9 +10,9 @@ namespace SMGTimes.Controllers
 {
 
     [Route("")]
-    public class MainController : ApiController
+    public class AppController : ApiController
     {
-        public static List<DateTime> VacationDates = new List<DateTime>();
+        public static List<DateTime> VacationDates = new List<DateTime>(); 
 
         public static UserOptions Options = new UserOptions();
 
@@ -22,14 +22,14 @@ namespace SMGTimes.Controllers
         };
 
         // GET api/values
-        [Route("GetDataForLastWeek")]
+        [Route("getNotificationForLastWeek")]
         public List<DayTime> GetDataForLastWeek()
         {
             List<DayTime> dayTimes = new List<DayTime>();
             List<DateTime> workingDates = GetLastWorkingWeek();
             foreach (DateTime workingDate in workingDates)
             {
-                int hours = RequiredHoursFoDay(workingDate);
+                //int hours = RequiredHoursFoDay(workingDate);
 
             }
             throw new Exception();
@@ -61,19 +61,34 @@ namespace SMGTimes.Controllers
             var item = InitialData.FirstOrDefault(x => x.DateTime.Date == date.Date);
             if (item != null)
             {
-                hours = item.Hours;
+                //hours = item.Hours;
             }
-            return Options.GetDefaultSettingForDay(date).Hours - hours;
+            throw new NotImplementedException();
+           // return Options.GetDefaultSettingForDay(date).Hours - hours;
 
         }
 
-        public void Approve(IEnumerable<DateTime> times)
+        [Route("validate")]
+        public string Validate(IEnumerable<DayTime> times)
         {
+            var totalHours = times.SelectMany(a => a.ActivityTimes).Sum(t => t.Hours);
+            if (Options.IsFullTime && totalHours > 40)
+            {
+                return "More than 40 hours is going o be logged";
+            }
+            return string.Empty;
+        }
             
+        [Route("log")]
+        public void Log(IEnumerable<DayTime> times)
+        {
+            InitialData.AddRange(times);
         }
 
-
-
-
+        [Route("getOptions")]
+        public UserOptions GetOptions()
+        {
+            return Options;
+        }
     }
 }
