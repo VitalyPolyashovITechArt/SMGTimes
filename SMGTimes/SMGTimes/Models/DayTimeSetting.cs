@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SMGTimes.Models
 {
@@ -6,10 +7,6 @@ namespace SMGTimes.Models
     {
         public DayOfWeek Day { get; set;}
 
-        public int Hours { get; set; }
-
-        public string TaskName { get; set; }
-
-        public string ProjectName { get; set; }
+        public List<DayActivityTime> ActivityTimes { get; set; }
     }
 }
