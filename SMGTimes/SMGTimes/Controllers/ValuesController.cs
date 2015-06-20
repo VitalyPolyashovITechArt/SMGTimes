@@ -69,7 +69,7 @@ namespace SMGTimes.Controllers
 
         }
 
-        [Route("log")]
+        [Route("main/validate")]
         public string Validate(IEnumerable<DayTime> times)
         {
             var totalHours = times.Sum(t => t.Hours);
