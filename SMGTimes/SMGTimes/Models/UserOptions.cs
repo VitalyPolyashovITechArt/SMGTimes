@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using NodaTime;
 
 namespace SMGTimes.Models
 {
     public class UserOptions
     {
         public bool IsFullTime { get; set; }
+
+        public DayOfWeek NotificationDayOfWeek { get; set; }
+
+        public LocalTime NotificationTime { get; set; }
 
         public DayTimeSetting GetDefaultSettingForDay(DateTime date)
         {

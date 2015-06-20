@@ -10,7 +10,7 @@ namespace SMGTimes.Controllers
 {
     public class MainController : ApiController
     {
-        public static List<DateTime> VacationDates = new List<DateTime>(); 
+        public static List<DateTime> VacationDates = new List<DateTime>();
 
         public static UserOptions Options = new UserOptions();
 
@@ -28,14 +28,14 @@ namespace SMGTimes.Controllers
             foreach (DateTime workingDate in workingDates)
             {
                 int hours = RequiredHoursFoDay(workingDate);
-                 
-            }
 
+            }
+            throw new NotImplementedException();
         }
 
         public string GetWarningFOrTheLastWeek()
         {
-            
+            throw new NotImplementedException();
         }
 
         private List<DateTime> GetLastWorkingWeek()
@@ -49,7 +49,7 @@ namespace SMGTimes.Controllers
                 day = day.AddDays(-1);
                 if (day.IsWorkingDate())
                 {
-                        dates.Add(day);
+                    dates.Add(day);
                 }
 
             } while (day.DayOfWeek != DayOfWeek.Sunday);
@@ -69,13 +69,27 @@ namespace SMGTimes.Controllers
 
         }
 
-        public void Approve(IEnumerable<DateTime> times)
+        [Route("log")]
+        public string Validate(IEnumerable<DayTime> times)
         {
-            
+            var totalHours = times.Sum(t => t.Hours);
+            if (Options.IsFullTime && totalHours > 40)
+            {
+                return "More than 40 hours";
+            }
+            return string.Empty;
         }
 
+        [Route("main/approve")]
+        public void Approve(IEnumerable<DayTime> times)
+        {
+            InitialData.AddRange(times);
+        }
 
-
-
+        [Route("main/getOptions")]
+        public UserOptions GetOptions()
+        {
+            return Options;
+        }
     }
 }
