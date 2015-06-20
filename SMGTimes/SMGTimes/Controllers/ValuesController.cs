@@ -73,7 +73,7 @@ namespace SMGTimes.Controllers
         public string Validate(IEnumerable<DayTime> times)
         {
             var totalHours = times.Sum(t => t.Hours);
-            if (Options.IsFullTime && totalHours > 40)
+            if (!Options.IsPartTime && totalHours > 40)
             {
                 return "More than 40 hours";
             }

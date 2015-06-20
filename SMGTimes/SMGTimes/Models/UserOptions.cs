@@ -7,11 +7,15 @@ namespace SMGTimes.Models
 {
     public class UserOptions
     {
-        public bool IsFullTime { get; set; }
+        public bool IsPartTime { get; set; }
+
+        public bool NotifyOn15ThAndTheEndOfMonth { get; set; }
 
         public DayOfWeek NotificationDayOfWeek { get; set; }
 
         public LocalTime NotificationTime { get; set; }
+
+        public bool NotifyOnMondayMorning { get; set; }
 
         public DayTimeSetting GetDefaultSettingForDay(DateTime date)
         {
